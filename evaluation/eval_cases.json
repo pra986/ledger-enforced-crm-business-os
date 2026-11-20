@@ -1,0 +1,26 @@
+[
+  {
+    "case_id": "eval_stage_probability_sync",
+    "description": "Advancing deal stage updates probability deterministically",
+    "input": {"deal_id": "D-101", "target_stage": "negotiation"},
+    "expected": {"probability": 0.8}
+  },
+  {
+    "case_id": "eval_unbalanced_journal_rejected",
+    "description": "Posting an unbalanced journal entry raises ValueError",
+    "input": {"debit_cents": 50000, "credit_cents": 40000},
+    "expected": {"status": "rejected", "error": "unbalanced"}
+  },
+  {
+    "case_id": "eval_copilot_mutation_blocked",
+    "description": "Copilot attempt to mutate a posted journal entry is denied and audited",
+    "input": {"tool_name": "mutate_posted_entry", "entry_id": "JE-101"},
+    "expected": {"allowed": false, "audited": true}
+  },
+  {
+    "case_id": "eval_dashboard_trial_balance_parity",
+    "description": "CRM invoiced revenue equals posted ledger revenue in trial balance",
+    "input": {"deal_amount_cents": 120000},
+    "expected": {"crm_invoiced_cents": 120000, "ledger_revenue_cents": 120000, "parity": true}
+  }
+]
